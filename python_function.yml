@@ -1,0 +1,9 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+functions:
+  test:
+    lang: dockerfile
+    handler: ./test
+    image: chrisioa/faas-python:0.0.5
+    #image: chrisioa/faas-python:linux-arm64v8-0.0.1

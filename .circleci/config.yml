@@ -1,0 +1,67 @@
+version: 2
+defaults: &defaults
+  machine: true
+
+
+jobs:
+  build_amd64:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Build image for amd64
+          command: make ARCHITECTURES=amd64
+      - deploy:
+          name: Push image for amd64 to dockerhub
+          command: docker login -u "$DOCKERHUB_USER" -p $DOCKERHUB_PASS && make ARCHITECTURES=amd64 push
+  
+  build_arm32v7:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Build image for arm32v7
+          command: make ARCHITECTURES=arm32v7
+      - deploy:
+          name: Push image for arm32v7 to dockerhub
+          command: docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASS" && make ARCHITECTURES=arm32v7 push
+
+
+  build_arm64v8:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Build image for arm64v8
+          command: make ARCHITECTURES=arm64v8
+      - deploy:
+          name: Push image for arm64v8 to dockerhub
+          command: docker login -u "$DOCKERHUB_USER" -p $DOCKERHUB_PASS && make ARCHITECTURES=arm64v8 push
+
+
+  manifest:
+    <<: *defaults
+    steps:
+      - checkout
+      - deploy:
+          name: Generate multiarch manifest and push to dockerhub
+          command: docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASS" && make manifest
+
+
+          
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - build_amd64:
+          <<: *requires_build
+      - build_arm32v7:
+          <<: *requires_build
+      - build_arm64v8:
+          <<: *requires_build
+      - manifest:
+          requires:
+            - build_amd64
+            - build_arm32v7
+            - build_arm64v8
