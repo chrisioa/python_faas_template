@@ -14,4 +14,4 @@ if __name__ == "__main__":
     st = get_stdin()
     ret = handler.handle(st)
     if ret != None:
-print(ret) 
+        print(ret) 
