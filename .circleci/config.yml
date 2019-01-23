@@ -53,13 +53,9 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
       - build_amd64:
-          <<: *requires_build
       - build_arm32v7:
-          <<: *requires_build
       - build_arm64v8:
-          <<: *requires_build
       - manifest:
           requires:
             - build_amd64
