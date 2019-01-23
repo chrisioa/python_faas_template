@@ -5,4 +5,3 @@ def handle(req):
     """
 
     return req
-g
