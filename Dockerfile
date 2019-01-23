@@ -50,7 +50,7 @@ WORKDIR /home/app
 COPY ${SRC_FOLDER} function
 
 # Populate example here - i.e. "cat", "sha512sum" or "node index.js"
-ENV fprocess="python3 handler.py"
+ENV fprocess="python3 index.py"
 # Set to true to see request in function logs
 ENV write_debug="true"
 
