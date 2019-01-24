@@ -8,9 +8,9 @@ def handle(req):
         req (str): request body
     """
     print("Received the following request:\n" + str(req) + "\nConverting...")
-  # jsonreq = json.loads(req)
-    converter = InfluxDBConverter(req['measurements_name'])
-    influxdb_json=converter.convert(req)
+    jreq = json.loads(req)
+    converter = InfluxDBConverter(jreq['measurements_name'])
+    influxdb_json=converter.convert(jreq)
     print("Result of Conversion:\n" + str(influxdb_json))
     return influxdb_json
 
@@ -49,3 +49,4 @@ class InfluxDBFormat:
     def __str__(self):
         return json.dumps(self.data, indent=2)
 
+#handle('{"sensor_id": 3, "type": "SensorMock", "measurements": [{"name": "temperature", "value": -23.0, "unit": "\u00b0C"}, {"name": "humidity", "value": -60.0, "unit": "\u00b0C"}], "hostname": "1ec3f4c24036", "device_id": "RPiDev1", "building": "L9", "room": "Living Room", "measurements_name":"Temp & Humidity", "timestamp": 1548262139}')
