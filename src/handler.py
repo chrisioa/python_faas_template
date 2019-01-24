@@ -8,9 +8,9 @@ def handle(req):
         req (str): request body
     """
     #print("Received the following request:\n" + str(req) + "\nConverting...")
-    jreq = json.loads(req)
-    converter = InfluxDBConverter(jreq['measurements_name'])
-    influxdb_json=converter.convert(jreq)
+    #jreq = json.loads(req)
+    converter = InfluxDBConverter(req['measurements_name'])
+    influxdb_json=converter.convert(req)
     #print("Result of Conversion:\n" + str(influxdb_json))
     return influxdb_json
 
