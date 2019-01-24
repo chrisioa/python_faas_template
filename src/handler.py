@@ -1,5 +1,6 @@
 import json
 import os
+from influxdb import client as influxdb
 
 
 def handle(req):
@@ -8,11 +9,13 @@ def handle(req):
         req (str): request body
     """
     #print("Received the following request:\n" + str(req) + "\nConverting...")
-    #jreq = json.loads(req)
+    jreq = json.loads(req)
     converter = InfluxDBConverter(req['measurements_name'])
     influxdb_json=converter.convert(req)
     #print("Result of Conversion:\n" + str(influxdb_json))
-    return influxdb_json
+    influxdb = influxdb.InfluxDBClient('influxdb', 8086, 'root', 'root', 'sensiot')
+    influxdb.write_points(influxdb_json.get())
+    return json.dumps('Status':'OK')
 
 
 
