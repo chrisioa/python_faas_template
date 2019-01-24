@@ -13,7 +13,7 @@ def handle(req):
     converter = InfluxDBConverter(req['measurements_name'])
     influxdb_json=converter.convert(req)
     #print("Result of Conversion:\n" + str(influxdb_json))
-    influxdb = influxdb.InfluxDBClient('localhost', 8086, 'root', 'root', 'sensiot')
+    influxdb = influxdb.InfluxDBClient('127.0.0.1', 8086, 'root', 'root', 'sensiot')
     influxdb.write_points(influxdb_json.get())
     return json.dumps('Status':'OK')
 
