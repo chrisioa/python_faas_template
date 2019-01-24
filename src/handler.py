@@ -7,11 +7,11 @@ def handle(req):
     Args:
         req (str): request body
     """
-    print("Received the following request:\n" + str(req) + "\nConverting...")
+    #print("Received the following request:\n" + str(req) + "\nConverting...")
     jreq = json.loads(req)
     converter = InfluxDBConverter(jreq['measurements_name'])
     influxdb_json=converter.convert(jreq)
-    print("Result of Conversion:\n" + str(influxdb_json))
+    #print("Result of Conversion:\n" + str(influxdb_json))
     return influxdb_json
 
 
