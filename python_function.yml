@@ -3,7 +3,9 @@ provider:
   gateway: http://127.0.0.1:8080
 functions:
   db-prepare:
+    environment:
+      db_ip: "the-sensiot-framework-faas_influxdb_1"
     lang: dockerfile
     handler: ./db-prepare
-    image: chrisioa/faas-python:0.0.16
+    image: chrisioa/faas-python:0.0.17
     #image: chrisioa/faas-python:linux-arm64v8-0.0.1
