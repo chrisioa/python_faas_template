@@ -4,7 +4,7 @@ provider:
 functions:
   db-prepare:
     environment:
-      db_ip: "the-sensiot-framework-faas_influxdb_1"
+      db_ip: "the-sensiot-framework-faas_influxdb_1" #check docker ps of manager node to get the correct container name
     lang: dockerfile
     handler: ./db-prepare
     image: chrisioa/faas-python:0.0.17
