@@ -2,10 +2,10 @@ provider:
   name: faas
   gateway: http://127.0.0.1:8080
 functions:
-  db-prepare:
+  db-writer:
     environment:
-      db_ip: "the-sensiot-framework-faas_influxdb_1" #check docker ps of manager node to get the correct container name
+      db_ip: "influxdb_influxdb" #check docker ps of manager node to get the correct container name
     lang: dockerfile
-    handler: ./db-prepare
+    handler: ./db-writer
     image: chrisioa/faas-python:0.0.17
     #image: chrisioa/faas-python:linux-arm64v8-0.0.1
